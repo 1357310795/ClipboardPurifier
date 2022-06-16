@@ -1,0 +1,97 @@
+﻿<Window x:Class="ClipboardPurifier.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:ClipboardPurifier"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="ClipboardPurifier 剪切板净化器 v1.0"
+        Width="418" Height="360"
+        Icon="/icon.ico" Closing="Window_Closing"
+        Loaded="Window_Loaded" Closed="Window_Closed"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Margin="10"
+                    Orientation="Horizontal">
+            <Image Height="60" Source="{StaticResource cleanDrawingImage}" />
+            <TextBlock VerticalAlignment="Center"
+                       Margin="10,0,0,0"
+                       Text="ClipboardPurifier"
+                       FontSize="40" FontFamily="Corbel" />
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.Resources>
+                <local:BoolToInverseBoolConverter x:Key="BoolToInverseBoolConverter"/>
+            </Grid.Resources>
+            <RadioButton Height="120"
+                         Margin="15,10,0,10"
+                         Foreground="{StaticResource MainColor1}"
+                         IsChecked="{Binding IsReserveText}">
+                <StackPanel Margin="10" Orientation="Vertical">
+                    <Image Width="48" Source="{StaticResource textDrawingImage}" />
+                    <TextBlock Margin="0,10,0,0"
+                               Foreground="{StaticResource MainColor1}"
+                               Text="只保留纯文本"
+                               FontSize="24" />
+                </StackPanel>
+            </RadioButton>
+            <RadioButton Height="120"
+                         Margin="0,10,15,10"
+                         Grid.Column="2" IsChecked="{Binding IsReserveText, Mode=OneWay, Converter={StaticResource BoolToInverseBoolConverter}}"
+                         Foreground="{StaticResource MainColor2}">
+                <StackPanel Margin="10" Orientation="Vertical">
+                    <Image Height="52"
+                           Margin="-2"
+                           Source="{StaticResource pictureDrawingImage}" />
+                    <TextBlock Margin="0,10,0,0"
+                               Foreground="{StaticResource MainColor2}"
+                               Text="只保留图片"
+                               FontSize="24" />
+                </StackPanel>
+            </RadioButton>
+        </Grid>
+        <StackPanel HorizontalAlignment="Center"
+                    Margin="0,10"
+                    Grid.Row="2"
+                    Orientation="Horizontal">
+            <Image Height="24" Source="{StaticResource checkDrawingImage}" />
+            <TextBlock VerticalAlignment="Center" FontSize="16">
+                <Run Text="已成功处理" />
+                <Run Text="{Binding SuccNum}" d:Text="999" />
+                <Run Text="个项目" />
+            </TextBlock>
+            <Image Height="24"
+                   Margin="10,0,0,0"
+                   Source="{StaticResource errorDrawingImage}" />
+            <TextBlock VerticalAlignment="Center" FontSize="16">
+                <Run Text="失败" />
+                <Run Text="{Binding ErrNum}" d:Text="999" />
+                <Run Text="个项目" />
+            </TextBlock>
+        </StackPanel>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center"
+              Grid.Row="3">
+            <Grid.Resources>
+                <local:ToggleToTextConverter x:Key="ToggleToTextConverter" />
+            </Grid.Resources>
+            <CheckBox IsChecked="{Binding IsToggleOn, Mode=TwoWay}">
+                <CheckBox.LayoutTransform>
+                    <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+                </CheckBox.LayoutTransform>
+                <TextBlock Margin="5,0,0,0" Text="{Binding IsToggleOn, Mode=OneWay, Converter={StaticResource ToggleToTextConverter}}" />
+            </CheckBox>
+        </Grid>
+    </Grid>
+</Window>
