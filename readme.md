@@ -29,4 +29,6 @@
 
 ### Thanks
 
-感谢Icon8和Material Design提供的配色
+感谢Icon8提供的图标和Material Design提供的配色
+
+特别感谢walterlv大神的[ClipboardViewer项目](https://github.com/walterlv/ClipboardViewer)，为我提供了灵感！（虽然我并没有用大神的代码hhh）
